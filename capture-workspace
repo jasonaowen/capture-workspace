@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DATE=$(date --rfc-3339=date)
+DATETIME=$(date --rfc-3339=seconds)
+TEMPFILE=$(mktemp --suffix=.png screenshot.XXXXX)
+
+mkdir -p ~/Pictures/Screenshots/${DATE}
+
+jq -nS \
+  "{ date: \"${DATETIME}\",
+     cmd: \"$(ps h -o cmd -q $(xdotool getactivewindow getwindowpid))\",
+     window_name: \"$(xdotool getactivewindow getwindowname)\" }" \
+  > ~/Pictures/Screenshots/${DATE}/"${DATETIME}".json
+scrot --multidisp --silent ${TEMPFILE}
+pngcrush -q ${TEMPFILE} ~/Pictures/Screenshots/${DATE}/"${DATETIME}".png
+rm ${TEMPFILE}
