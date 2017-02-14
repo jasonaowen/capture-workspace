@@ -4,6 +4,17 @@
 
 This is a simple script to take a screenshot and record the active application.
 
+It takes a screenshot, and writes the current application name and title to a
+JSON file. Here's an example:
+
+```json
+{
+    "cmd": "/usr/lib/gnome-terminal/gnome-terminal-server",
+    "date": "2017-02-14 17:50:01-05:00",
+    "window_name": "kale:~/dev/rc/capture-workspace"
+}
+```
+
 Set it to a cron job!
 
 ```crontab
